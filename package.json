@@ -19,8 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "setup:localstack": "bash setup-localstack.sh",
-    "invoke:lambda": "aws --endpoint-url=http://localhost:4566 lambda invoke --function-name emailProcessor output.txt",
-    "deploy:lambda": "zip function.zip index.js && aws --endpoint-url=http://localhost:4566 lambda update-function-code --function-name emailProcessor --zip-file fileb://function.zip"
+    "invoke:lambda": "awslocal lambda invoke --function-name emailProcessor output.txt",
+    "deploy:lambda": "zip function.zip lambda/index.js && awslocal lambda update-function-code --function-name emailProcessor --zip-file fileb://function.zip"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -28,7 +28,10 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@nestjs/microservices": "^10.0.0",
+    "@ssut/nestjs-sqs": "^1.0.0",
+    "aws-sdk": "^2.1000.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -51,7 +54,8 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "@types/aws-lambda": "^8.10.89"
   },
   "jest": {
     "moduleFileExtensions": [
