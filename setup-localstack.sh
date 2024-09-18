@@ -28,7 +28,7 @@ reset_localstack() {
   fi
 
   # Delete existing event source mapping if it exists
-  EVENT_SOURCE_MAPPINGS=$(awslocal lambda list-event-source-mappings --function-name $FUNCTION_NAME --event-source-arn arn:aws:sqs:us-east-1:000000000000:$QUEUE_NAME | jq -r '.EventSourceMappings[] | select(.EventSourceArn == "arn:aws:sqs:us-east-1:000000000000:'$QUEUE_NAME'") | .UUID')
+  EVENT_SOURCE_MAPPINGS=$(awslocal lambda list-event-source-mappings --function-name $FUNCTION_NAME --event-source-arn arn:aws:sqs:ap-northeast-1:000000000000:$QUEUE_NAME | jq -r '.EventSourceMappings[] | select(.EventSourceArn == "arn:aws:sqs:ap-northeast-1:000000000000:'$QUEUE_NAME'") | .UUID')
   for UUID in $EVENT_SOURCE_MAPPINGS; do
     echo "Deleting existing event source mapping with UUID $UUID..."
     awslocal lambda delete-event-source-mapping --uuid $UUID
@@ -66,7 +66,7 @@ awslocal lambda create-function \
 echo "Setting up SQS trigger for Lambda..."
 awslocal lambda create-event-source-mapping \
   --function-name $FUNCTION_NAME \
-  --event-source-arn arn:aws:sqs:us-east-1:000000000000:$QUEUE_NAME \
+  --event-source-arn arn:aws:sqs:ap-northeast-1:000000000000:$QUEUE_NAME \
   --batch-size 10
 
 # Verify email in SES

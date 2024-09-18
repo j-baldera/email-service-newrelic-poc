@@ -7,7 +7,7 @@ export class EmailService {
 
   constructor() {
     this.ses = new AWS.SES({
-      region: 'us-east-1',
+      region: 'ap-northeast-1',
       endpoint: 'http://localhost:4566',
     });
   }

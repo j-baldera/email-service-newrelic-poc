@@ -1,6 +1,6 @@
 import { SES } from 'aws-sdk';
 const ses = new SES({
-  region: 'us-east-1',
+  region: 'ap-northeast-1',
   endpoint: 'http://localhost:4566',
 });
 
